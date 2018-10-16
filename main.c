@@ -3,12 +3,72 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
+enum MetaCommandResult_t{
+    META_COMMAND_SUCCESS,
+    META_COMMAND_UNRECOGNIZED_COMMAND
+};
+typedef enum MetaCommandResult_t MetaCommandResult;
+
+enum PrepareResult_t{
+    PREPARE_SUCCESS,
+    PREPARE_UNRECOGNIZED_COMMAND
+};
+typedef enum PrepareResult_t PrepareResult;
+
+enum StatementType_t {
+    STATEMENT_INSERT,
+    STATEMENT_SELECT
+};
+typedef enum StatementType_t StatementType;
+
+struct Statement_t {
+    StatementType type;
+};
+typedef struct Statement_t Statement;
+
 struct InputBuffer_t{
     char* buffer;
     size_t buffer_length;
     ssize_t input_length;
 };
 typedef struct InputBuffer_t InputBuffer;
+
+PrepareResult prepare_statement(InputBuffer* input_buffer, Statement* statement){
+    /*
+     * NOTE: use strncmp to compare because insert keyword will be followed by data
+     * (e.g. insert 1 cstack foo@bar.com)
+     * */
+    if(strncmp(input_buffer->buffer, "insert", 6) == 0){
+        statement->type = STATEMENT_INSERT;
+        return PREPARE_SUCCESS;
+    }
+    if(strcmp(input_buffer->buffer, "select") == 0){
+        statement->type = STATEMENT_SELECT;
+        return PREPARE_SUCCESS;
+    }
+    return PREPARE_UNRECOGNIZED_COMMAND;
+}//prepare_statement
+
+MetaCommandResult do_meta_command(InputBuffer* input_buffer){
+    if (strcmp(input_buffer->buffer, ".exit") == 0){
+        exit(EXIT_SUCCESS);
+    } else{
+        return META_COMMAND_UNRECOGNIZED_COMMAND;
+    }
+
+}
+
+void exec_statement(Statement* statement){
+    switch(statement->type){
+        case (STATEMENT_INSERT):
+            printf("This is where we would do an insert \n");
+            break;
+
+        case (STATEMENT_SELECT):
+            printf("This is where we would do an select\n");
+            break;
+    }
+}
 
 InputBuffer* new_input_buffer(){
     InputBuffer* input_buffer = malloc(sizeof(InputBuffer));
@@ -39,17 +99,36 @@ void print_prompt(){
 
 
 int main(int argc, char* argv[]) {
-    InputBuffer* inputBuffer = new_input_buffer();
+    InputBuffer* input_buffer = new_input_buffer();
     while(true){
         print_prompt();
-        read_input(inputBuffer);
+        read_input(input_buffer);
 
-        if(strcmp(inputBuffer->buffer, ".exit") == 0){
-            exit(EXIT_SUCCESS);
+        if(input_buffer->buffer[0] == '.'){
+            switch(do_meta_command(input_buffer)){
+                case (META_COMMAND_SUCCESS):
+                    continue;
+                case (META_COMMAND_UNRECOGNIZED_COMMAND):
+                    printf("Unrecognized command '%s' .\n", input_buffer->buffer);
+                    continue;
+
+            }//switch
         }
-        else{
-            printf("Unrecognized command '%s' .\n", inputBuffer->buffer);
-        }
+        /*else{
+            printf("Something wrong");
+
+        }*/
+        Statement statement;
+        switch(prepare_statement(input_buffer, &statement)){
+            case (PREPARE_SUCCESS):
+                break;
+            case (PREPARE_UNRECOGNIZED_COMMAND):
+                printf("Unrecognized keyword at start of '%s'.\n " ,input_buffer->buffer);
+                continue;
+        }//switch
+        exec_statement(&statement);
+        printf("Executed\n");
+
     }//while
 
     return 0;
