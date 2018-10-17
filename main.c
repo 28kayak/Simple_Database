@@ -2,8 +2,11 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include "results.h"
+#include "statement.h"
+#include "input_buffer.h"
 
-enum MetaCommandResult_t{
+/*enum MetaCommandResult_t{
     META_COMMAND_SUCCESS,
     META_COMMAND_UNRECOGNIZED_COMMAND
 };
@@ -13,9 +16,9 @@ enum PrepareResult_t{
     PREPARE_SUCCESS,
     PREPARE_UNRECOGNIZED_COMMAND
 };
-typedef enum PrepareResult_t PrepareResult;
+typedef enum PrepareResult_t PrepareResult; */
 
-enum StatementType_t {
+/*enum StatementType_t {
     STATEMENT_INSERT,
     STATEMENT_SELECT
 };
@@ -24,14 +27,14 @@ typedef enum StatementType_t StatementType;
 struct Statement_t {
     StatementType type;
 };
-typedef struct Statement_t Statement;
+typedef struct Statement_t Statement; */
 
-struct InputBuffer_t{
+/*struct InputBuffer_t{
     char* buffer;
     size_t buffer_length;
     ssize_t input_length;
 };
-typedef struct InputBuffer_t InputBuffer;
+typedef struct InputBuffer_t InputBuffer;*/
 
 PrepareResult prepare_statement(InputBuffer* input_buffer, Statement* statement){
     /*
