@@ -35,10 +35,6 @@ RUN sudo make install
 RUN echo 'export PATH=$HOME/cmake-3.17.1/bin/:$PATH' >> ~/.bashrc && \
     . ~/.bashrc
 
-# OpenBlas, Lapack
-RUN apt-get install -y libopenblas-dev && \
-    apt-get install -y liblapack-dev
-
 # Please use below directory to install cpp libraries.
 WORKDIR $HOME/usr/
 RUN mkdir ./library
