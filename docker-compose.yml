@@ -2,7 +2,7 @@ version: '3'
 
 services:
   cmake:
-    container_name: cmake_container
+    container_name: simple_db
     build:
       context: .
       dockerfile: Dockerfile
