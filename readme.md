@@ -41,3 +41,5 @@ make
 # Run an app
 ./simple_database
 ```
+(i) the source code will be changed automatically on docker-compser. 
+So, you just need to re-build it.
