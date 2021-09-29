@@ -7,7 +7,7 @@ For learning purpose, imitating "Let's Build a Simple Database"
 - https://cstack.github.io/db_tutorial/
 
 ## Build Environment
-```
+```sh
 # build image
 docker-compose build
 
@@ -22,7 +22,7 @@ docker-compose exec cmake bash
 Simple DB uses `cmake` for build. 
 After having your environment, you need to run the following command to build an executable file.
 
-```
+```sh
 # in your container 
 cd src
 # create a directory to store executables 
@@ -37,7 +37,9 @@ cmake ../ # poiting to src dir
 -- Build files have been written to: /usr/src/build
 
 make
-
+```
+## RUN the simple DB
+```sh
 # Run an app
 ./simple_database
 ```
