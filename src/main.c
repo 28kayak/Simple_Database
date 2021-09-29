@@ -94,7 +94,13 @@ void read_input(InputBuffer* inputBuffer){
     inputBuffer->buffer_length = bytes_read - 1;
     inputBuffer->buffer[bytes_read - 1] = 0;
 }
-
+// frees the memoery allocated for an instance of InputBuffer
+// and the buffer element of the respective structure 
+// getline() allocate memory for input_buffer->buffer and read_input. 
+void close_input_buffer(InputBuffer* input_buffer){
+    free(input_buffer->buffer);
+    free(input_buffer);
+}
 
 void print_prompt(){
     printf("db > ");
