@@ -119,13 +119,8 @@ int main(int argc, char* argv[]) {
                 case (META_COMMAND_UNRECOGNIZED_COMMAND):
                     printf("Unrecognized command '%s' .\n", input_buffer->buffer);
                     continue;
-
             }//switch
         }
-        /*else{
-            printf("Something wrong");
-
-        }*/
         Statement statement;
         switch(prepare_statement(input_buffer, &statement)){
             case (PREPARE_SUCCESS):
@@ -136,8 +131,6 @@ int main(int argc, char* argv[]) {
         }//switch
         exec_statement(&statement);
         printf("Executed\n");
-
     }//while
-
     return 0;
 }//main
