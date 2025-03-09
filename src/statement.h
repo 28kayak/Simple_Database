@@ -1,12 +1,13 @@
 //
 // Created by Kaya Ota on 2018-10-17.
 //
-
+#include <stdint.h>
 #ifndef SIMPLE_BATABASE_STATEMENT_H
 #define SIMPLE_BATABASE_STATEMENT_H
 #define COLUMN_USERNAME_SIZE 32
 #define COLUMN_EMAIL_SIZE 255 
 #endif //SIMPLE_BATABASE_STATEMENT_H
+
 
 enum StatementType_t {
     STATEMENT_INSERT,
@@ -19,6 +20,7 @@ typedef struct{
     char username[COLUMN_USERNAME_SIZE];
     char email[COLUMN_EMAIL_SIZE];
 } Row;
+
 
 struct Statement_t {
     StatementType type;

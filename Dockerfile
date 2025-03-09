@@ -27,10 +27,10 @@ RUN cd $HOME && \
     tar zxvf cmake-3.17.1.tar.gz 
 WORKDIR $HOME/cmake-3.17.1
     
-RUN ./bootstrap 
+#RUN ./bootstrap 
 #RUN  ./$HOME/cmake-3.17.1/configure
-RUN make 
-RUN sudo make install
+#RUN make 
+#RUN sudo make install
 
 RUN echo 'export PATH=$HOME/cmake-3.17.1/bin/:$PATH' >> ~/.bashrc && \
     . ~/.bashrc

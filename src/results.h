@@ -15,7 +15,14 @@ typedef enum MetaCommandResult_t MetaCommandResult;
 
 enum PrepareResult_t{
     PREPARE_SUCCESS,
-    PREPARE_UNRECOGNIZED_COMMAND
+    PREPARE_UNRECOGNIZED_COMMAND,
+    PREPARE_SYNTAX_ERROR
 };
 typedef enum PrepareResult_t PrepareResult;
+
+enum ExecuteResult_t{
+    EXECUTE_SUCCESS,
+    EXECUTE_TABLE_FULL
+};
+typedef enum ExecuteResult_t ExecuteResult;
 
